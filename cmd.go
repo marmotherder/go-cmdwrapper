@@ -21,7 +21,7 @@ type CMDWrapper struct {
 }
 
 func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error) {
-	w.Logger.Infof("running command: %s %s in %s\n", name, arg, w.Dir)
+	w.Logger.Infof("running command: %s %s in %s", name, arg, w.Dir)
 
 	cmd := exec.Command(name, arg...)
 
@@ -45,7 +45,7 @@ func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error
 			}
 			if status, ok := exitErr.Sys().(syscall.WaitStatus); ok {
 				exitCode = status.ExitStatus()
-				w.Logger.Errorf("exited with code %d\n", exitCode)
+				w.Logger.Errorf("exited with code %d", exitCode)
 			}
 		}
 		return nil, &exitCode, err
@@ -75,14 +75,14 @@ func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error
 		w.Logger.Error(sbStdErr.String())
 	}
 
-	w.Logger.Infof("exited with code %d\n", cmd.ProcessState.ExitCode())
+	w.Logger.Infof("exited with code %d", cmd.ProcessState.ExitCode())
 
 	exitCode := cmd.ProcessState.ExitCode()
 	return &stdOutString, &exitCode, nil
 }
 
 func (w CMDWrapper) RunCommandAsync(dir, name string, arg ...string) (chan string, chan string, func() error, *os.ProcessState, error) {
-	w.Logger.Infof("running command: %s %s in %s\n", name, arg, dir)
+	w.Logger.Infof("running command: %s %s in %s", name, arg, dir)
 
 	cmd := exec.Command(name, arg...)
 
@@ -106,7 +106,7 @@ func (w CMDWrapper) RunCommandAsync(dir, name string, arg ...string) (chan strin
 			}
 			if status, ok := exitErr.Sys().(syscall.WaitStatus); ok {
 				exitCode = status.ExitStatus()
-				w.Logger.Errorf("exited with code %d\n", exitCode)
+				w.Logger.Errorf("exited with code %d", exitCode)
 			}
 		}
 		return nil, nil, nil, cmd.ProcessState, err
