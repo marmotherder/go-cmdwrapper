@@ -21,7 +21,7 @@ type CMDWrapper struct {
 }
 
 func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error) {
-	w.Logger.Infof("running command: %s %s in %s", name, arg, w.Dir)
+	w.Logger.Infof("running command: %s %s in %s\n", name, arg, w.Dir)
 
 	cmd := exec.Command(name, arg...)
 
@@ -45,7 +45,7 @@ func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error
 			}
 			if status, ok := exitErr.Sys().(syscall.WaitStatus); ok {
 				exitCode = status.ExitStatus()
-				w.Logger.Errorf("exited with code %d", exitCode)
+				w.Logger.Errorf("exited with code %d\n", exitCode)
 			}
 		}
 		return nil, &exitCode, err
