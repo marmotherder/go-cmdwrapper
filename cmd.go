@@ -11,6 +11,7 @@ import (
 
 type logger interface {
 	Infof(template string, args ...any)
+	Warn(args ...any)
 	Error(args ...any)
 	Errorf(template string, args ...any)
 }
@@ -72,7 +73,7 @@ func (w CMDWrapper) RunCommand(name string, arg ...string) (*string, *int, error
 	stdOutString := strings.TrimSpace(sbStdOut.String())
 
 	if sbStdErr.String() != "" {
-		w.Logger.Error(sbStdErr.String())
+		w.Logger.Warn(sbStdErr.String())
 	}
 
 	w.Logger.Infof("exited with code %d", cmd.ProcessState.ExitCode())
